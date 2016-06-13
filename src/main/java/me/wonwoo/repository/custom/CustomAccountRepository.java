@@ -15,5 +15,9 @@ public interface CustomAccountRepository {
 
   Account findByemail(String email);
 
+  Account findByPasswordFirst(String password);
+
   Page<Account> findByPassword(String password, Pageable pageable);
+
+  long findByAccount();
 }

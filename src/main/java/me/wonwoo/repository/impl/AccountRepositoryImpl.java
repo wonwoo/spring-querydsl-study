@@ -36,6 +36,14 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
       .fetchOne();
   }
 
+@Override
+public Account findByPasswordFirst(String password) {
+  QAccount account = QAccount.account;
+  return from(account)
+    .where(account.password.like("%" + password + "%"))
+    .fetchFirst();
+}
+
   @Override
   public Page<Account> findByPassword(String password, Pageable pageable) {
     QAccount account = QAccount.account;
@@ -46,5 +54,12 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
         .offset(pageable.getOffset())
         .fetchResults();
     return new PageImpl<>(accountSearchResults.getResults(), pageable, accountSearchResults.getTotal());
+  }
+
+  @Override
+  public long findByAccount() {
+    QAccount account = QAccount.account;
+    return from(account)
+      .fetchCount();
   }
 }

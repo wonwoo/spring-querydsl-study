@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static java.util.stream.Collectors.*;
+import static me.wonwoo.domain.QAccount.account;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -44,6 +45,14 @@ public class AccountRepositoryTest {
   }
 
   @Test
+  public void findByPasswordFirstTest(){
+    Account account = accountRepository.findByPasswordFirst("PassWord1111");
+    System.out.println(account);
+//    assertEquals(account.getName(),"wonwoo");
+//    assertEquals(account.getEmail(),"wonwoo@test.com");
+  }
+
+  @Test
   public void findByPasswordLikeTest(){
     Pageable pageable = new PageRequest(0, 2);
     Page<Account> accounts = accountRepository.findByPassword("PassWord", pageable);
@@ -60,5 +69,11 @@ public class AccountRepositoryTest {
         .map(String::valueOf)
         .collect(joining("\n"))
     );
+  }
+
+  @Test
+  public void findByAccountCountTest(){
+    long count = accountRepository.findByAccount();
+    System.out.println(count);
   }
 }
