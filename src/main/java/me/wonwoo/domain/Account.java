@@ -1,6 +1,7 @@
 package me.wonwoo.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Data
+@NoArgsConstructor
 public class Account {
 
   @Id
@@ -19,5 +21,13 @@ public class Account {
 
   private String name;
 
+  private String password;
+
   private String email;
+
+  public Account(String email, String name, String password) {
+    this.email = email;
+    this.name = name;
+    this.password = password;
+  }
 }
