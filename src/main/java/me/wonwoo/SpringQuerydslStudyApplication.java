@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 
 import java.util.Arrays;
 
@@ -21,17 +23,17 @@ public class SpringQuerydslStudyApplication {
   @Autowired
   private AccountRepository accountRepository;
 
-  @Bean
-  public CommandLineRunner commandLineRunner() {
-    return args ->
-      Arrays.asList(
-        new Account("wonwoo@test.com", "wonwoo", "1PassWord"),
-        new Account("123@test.com", "wonwoo", "2PassWord11"),
-        new Account("aaa@test.com", "kevin", "3PassWord2"),
-        new Account("bbb@test.com", "ggg", "PassWord33"),
-        new Account("ccc@test.com", "ggg", "PassWord44"),
-        new Account("ddd@test.com", "keven", "PassWord5"),
-        new Account("ggg@test.com", "qqqq", "PassWord6")
-      ).forEach(accountRepository::save);
-  }
+//  @Bean
+//  public CommandLineRunner commandLineRunner() {
+//    return args ->
+//      Arrays.asList(
+//        new Account("wonwoo@test.com", "wonwoo", "1PassWord"),
+//        new Account("123@test.com", "wonwoo", "2PassWord11"),
+//        new Account("aaa@test.com", "kevin", "3PassWord2"),
+//        new Account("bbb@test.com", "ggg", "PassWord33"),
+//        new Account("ccc@test.com", "ggg", "PassWord44"),
+//        new Account("ddd@test.com", "keven", "PassWord5"),
+//        new Account("ggg@test.com", "qqqq", "PassWord6")
+//      ).forEach(accountRepository::save);
+//  }
 }

@@ -3,6 +3,7 @@ package me.wonwoo.repository.impl;
 import com.querydsl.core.QueryResults;
 import me.wonwoo.domain.Account;
 import me.wonwoo.domain.QAccount;
+import me.wonwoo.domain.QOrder;
 import me.wonwoo.repository.custom.CustomAccountRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -36,13 +37,13 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
       .fetchOne();
   }
 
-@Override
-public Account findByPasswordFirst(String password) {
-  QAccount account = QAccount.account;
-  return from(account)
-    .where(account.password.like("%" + password + "%"))
-    .fetchFirst();
-}
+  @Override
+  public Account findByPasswordFirst(String password) {
+    QAccount account = QAccount.account;
+    return from(account)
+      .where(account.password.like("%" + password + "%"))
+      .fetchFirst();
+  }
 
   @Override
   public Page<Account> findByPassword(String password, Pageable pageable) {

@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 import static java.util.stream.Collectors.*;
-import static me.wonwoo.domain.QAccount.account;
 import static org.junit.Assert.assertEquals;
 
 /**
