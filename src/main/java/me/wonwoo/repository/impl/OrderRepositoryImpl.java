@@ -14,22 +14,22 @@ import java.util.List;
 /**
  * Created by wonwoo on 2016. 6. 14..
  */
-public class OrderRepositoryImpl extends QueryDslRepositorySupport implements CustomOrderRepository{
+public class OrderRepositoryImpl extends QueryDslRepositorySupport implements CustomOrderRepository {
 
   public OrderRepositoryImpl() {
     super(Order.class);
   }
 
-@Override
-public List<Order> orders(){
-  QOrder order = QOrder.order;
-  QAccount account = QAccount.account;
-  return from(order)
-    .leftJoin(order.account, account).fetchJoin()
-    .fetch();
-}
+  @Override
+  public List<Order> orders() {
+    QOrder order = QOrder.order;
+    QAccount account = QAccount.account;
+    return from(order)
+      .leftJoin(order.account, account).fetchJoin()
+      .fetch();
+  }
 
-//@Override
+  //@Override
 //public List<Order> orders(Long id){
 //  QOrder order = QOrder.order;
 //  QAccount account = QAccount.account;
@@ -42,19 +42,19 @@ public List<Order> orders(){
 //  return query
 //    .fetchJoin().fetch();
 //}
-@Override
-public List<Order> orders(Long id){
-  QOrder order = QOrder.order;
-  QAccount account = QAccount.account;
-  JPQLQuery query = from(order)
-    .leftJoin(order.account, account).fetchJoin();
+  @Override
+  public List<Order> orders(Long id) {
+    QOrder order = QOrder.order;
+    QAccount account = QAccount.account;
+    JPQLQuery query = from(order)
+      .leftJoin(order.account, account).fetchJoin();
 
-  BooleanBuilder booleanBuilder = new BooleanBuilder();
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-  if(id != null){
-    booleanBuilder.and(account.id.goe(id));
+    if (id != null) {
+      booleanBuilder.and(account.id.goe(id));
+    }
+    query.where(booleanBuilder);
+    return query.fetch();
   }
-  query.where(booleanBuilder);
-  return query.fetch();
-}
 }
