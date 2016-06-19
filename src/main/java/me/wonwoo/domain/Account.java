@@ -28,7 +28,7 @@ public class Account {
 
   private String email;
 
-  @OneToMany(mappedBy = "account")
+  @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
   private List<Order> orders = new ArrayList<>();
 //
 //  public Account(String email, String name, String password) {
