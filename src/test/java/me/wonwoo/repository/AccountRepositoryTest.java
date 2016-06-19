@@ -75,4 +75,34 @@ public class AccountRepositoryTest {
     long count = accountRepository.findByAccount();
     System.out.println(count);
   }
+
+  @Test
+  public void findByOrdersInnerJoinTest(){
+    List<Account> byOrders = accountRepository.findByInnerJoinOrders();
+    System.out.println(
+      byOrders.stream()
+      .map(String::valueOf)
+      .collect(joining("\n"))
+    );
+  }
+
+  @Test
+  public void findByOrdersLeftJoinTest(){
+    List<Account> byOrders = accountRepository.findByleftJoinOrders();
+    System.out.println(
+      byOrders.stream()
+        .map(String::valueOf)
+        .collect(joining("\n"))
+    );
+  }
+
+  @Test
+  public void findByOrdersRightJoinTest(){
+    List<Account> byOrders = accountRepository.findByRightJoinOrders();
+    System.out.println(
+      byOrders.stream()
+        .map(String::valueOf)
+        .collect(joining("\n"))
+    );
+  }
 }

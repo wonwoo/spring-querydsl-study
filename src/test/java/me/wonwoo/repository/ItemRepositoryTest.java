@@ -10,8 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.joining;
-import static org.junit.Assert.*;
+import static java.util.stream.Collectors.*;
 
 /**
  * Created by wonwoo on 2016. 6. 15..

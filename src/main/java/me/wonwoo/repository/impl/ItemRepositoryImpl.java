@@ -1,12 +1,11 @@
 package me.wonwoo.repository.impl;
 
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.*;
-import com.querydsl.core.types.dsl.ComparableEntityPath;
+import com.querydsl.core.types.ConstructorExpression;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.sql.JPASQLQuery;
 import me.wonwoo.domain.Item;
 import me.wonwoo.domain.QItem;
 import me.wonwoo.dto.ItemDto;
@@ -14,8 +13,6 @@ import me.wonwoo.repository.custom.CustomItemRepository;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
 import java.util.List;
-
-import static javafx.scene.input.KeyCode.T;
 
 /**
  * Created by wonwoo on 2016. 6. 15..
@@ -46,7 +43,6 @@ public class ItemRepositoryImpl extends QueryDslRepositorySupport implements Cus
       .where(itemSub.price.gt(1000).as("sub"));
     EntityPathBase<Item> path = new EntityPathBase<>(Item.class,"c");
     return from(path).where(item.id.goe(3)).fetch();
-
   }
 
 
@@ -75,7 +71,8 @@ public class ItemRepositoryImpl extends QueryDslRepositorySupport implements Cus
   @Override
   public List<ItemDto.NamePrice> findByProjections() {
     QItem item = QItem.item;
-    ConstructorExpression<ItemDto.NamePrice> constructor = Projections.constructor(ItemDto.NamePrice.class, item.name, item.price);
+    ConstructorExpression<ItemDto.NamePrice> constructor =
+      Projections.constructor(ItemDto.NamePrice.class, item.name, item.price);
     return from(item).select(constructor).fetch();
   }
 }

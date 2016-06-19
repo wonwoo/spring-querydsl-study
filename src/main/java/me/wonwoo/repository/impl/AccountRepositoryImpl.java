@@ -1,9 +1,7 @@
 package me.wonwoo.repository.impl;
 
 import com.querydsl.core.QueryResults;
-import me.wonwoo.domain.Account;
-import me.wonwoo.domain.QAccount;
-import me.wonwoo.domain.QOrder;
+import me.wonwoo.domain.*;
 import me.wonwoo.repository.custom.CustomAccountRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
 import java.util.List;
+
+import static jdk.nashorn.internal.objects.NativeArray.join;
 
 /**
  * Created by wonwoo on 2016. 6. 13..
@@ -62,5 +62,35 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
     QAccount account = QAccount.account;
     return from(account)
       .fetchCount();
+  }
+
+  @Override
+  public List<Account> findByInnerJoinOrders() {
+    QAccount account = QAccount.account;
+    QOrder order = QOrder.order;
+    return from(account)
+//  .innerJoin(account.orders, order)
+      .join(account.orders, order)
+      .fetch();
+  }
+
+  //select account0_.account_id as account_1_0_, account0_.email as email2_0_, account0_.name as name3_0_, account0_.password as password4_0_ from account account0_ inner join orders orders1_ on account0_.account_id=orders1_.account_id
+  //select account0_.account_id as account_1_0_, account0_.email as email2_0_, account0_.name as name3_0_, account0_.password as password4_0_ from account account0_ inner join orders orders1_ on account0_.account_id=orders1_.account_id
+  @Override
+  public List<Account> findByleftJoinOrders() {
+    QAccount account = QAccount.account;
+    QOrder order = QOrder.order;
+    return from(account)
+      .leftJoin(account.orders, order)
+      .fetch();
+  }
+
+  @Override
+  public List<Account> findByRightJoinOrders() {
+    QAccount account = QAccount.account;
+    QOrder order = QOrder.order;
+    return from(account)
+      .rightJoin(account.orders, order)
+      .fetch();
   }
 }

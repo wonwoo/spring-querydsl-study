@@ -20,4 +20,10 @@ public interface CustomAccountRepository {
   Page<Account> findByPassword(String password, Pageable pageable);
 
   long findByAccount();
+
+  List<Account> findByInnerJoinOrders();
+
+  List<Account> findByleftJoinOrders();
+
+  List<Account> findByRightJoinOrders();
 }
