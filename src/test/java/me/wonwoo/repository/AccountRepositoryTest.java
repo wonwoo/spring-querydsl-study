@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -78,7 +79,10 @@ public class AccountRepositoryTest {
 
   @Test
   public void findByOrdersInnerJoinTest(){
-    List<Account> byOrders = accountRepository.findByInnerJoinOrders();
+List<Account> byOrders = accountRepository.findByInnerJoinOrders();
+for(Account account :byOrders){
+  System.out.println(account.getOrders());
+}
     System.out.println(
       byOrders.stream()
       .map(String::valueOf)

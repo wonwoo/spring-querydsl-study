@@ -69,11 +69,16 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
     QAccount account = QAccount.account;
     QOrder order = QOrder.order;
     return from(account)
-//  .innerJoin(account.orders, order)
-      .join(account.orders, order)
+      .join(account.orders, order).fetchJoin()
       .fetch();
   }
 
+  //  Hibernate: select account0_.account_id as account_1_0_, account0_.email as email2_0_, account0_.name as name3_0_, account0_.password as password4_0_ from account account0_ inner join orders orders1_ on account0_.account_id=orders1_.account_id
+//  Hibernate: select account0_.account_id as account_1_0_0_, orders1_.order_id as order_id1_3_1_, account0_.email as email2_0_0_, account0_.name as name3_0_0_, account0_.password as password4_0_0_, orders1_.account_id as account_3_3_1_, orders1_.order_date as order_da2_3_1_, orders1_.account_id as account_3_3_0__, orders1_.order_id as order_id1_3_0__ from account account0_ inner join orders orders1_ on account0_.account_id=orders1_.account_id
+//  Account(id=1, name=wonwoo, password=1PassWord, email=wonwoo@test.com)
+//  Account(id=2, name=wonwoo, password=2PassWord11, email=123@test.com)
+//  Account(id=1, name=wonwoo, password=1PassWord, email=wonwoo@test.com)
+//  Account(id=3, name=kevin, password=3PassWord2, email=aaa@test.com)
   //select account0_.account_id as account_1_0_, account0_.email as email2_0_, account0_.name as name3_0_, account0_.password as password4_0_ from account account0_ inner join orders orders1_ on account0_.account_id=orders1_.account_id
   //select account0_.account_id as account_1_0_, account0_.email as email2_0_, account0_.name as name3_0_, account0_.password as password4_0_ from account account0_ inner join orders orders1_ on account0_.account_id=orders1_.account_id
   @Override
