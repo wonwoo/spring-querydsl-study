@@ -1,5 +1,7 @@
 package me.wonwoo.repository;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import me.wonwoo.domain.Account;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -108,5 +110,9 @@ for(Account account :byOrders){
         .map(String::valueOf)
         .collect(joining("\n"))
     );
+  }
+
+  @Test
+  public void findAllCustomizeTest(){
   }
 }
