@@ -2,6 +2,7 @@ package me.wonwoo;
 
 import me.wonwoo.domain.Account;
 import me.wonwoo.repository.AccountRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,11 @@ public class SpringQuerydslStudyApplication {
 
   @Autowired
   private AccountRepository accountRepository;
+
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
 
 //  @Bean
 //  public CommandLineRunner commandLineRunner() {

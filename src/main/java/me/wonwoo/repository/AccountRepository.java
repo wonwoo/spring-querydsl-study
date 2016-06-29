@@ -15,11 +15,11 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 public interface AccountRepository extends QueryDslPredicateExecutor<Account>,
   QuerydslBinderCustomizer<QAccount>, JpaRepository<Account, Long>, CustomAccountRepository {
 
-@Override
-default void customize(QuerydslBindings bindings, QAccount user) {
-  bindings.bind(user.name).first((path, value) -> path.eq(value));
-  bindings.bind(String.class)
-    .first((StringPath path, String value) -> path.containsIgnoreCase(value));
-  bindings.excluding(user.password);
-}
+  @Override
+  default void customize(QuerydslBindings bindings, QAccount user) {
+    bindings.bind(user.name).first((path, value) -> path.eq(value));
+    bindings.bind(String.class)
+      .first((StringPath path, String value) -> path.containsIgnoreCase(value));
+    bindings.excluding(user.password);
+  }
 }
