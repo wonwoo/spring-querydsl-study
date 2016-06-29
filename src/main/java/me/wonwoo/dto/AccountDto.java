@@ -2,6 +2,9 @@ package me.wonwoo.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by wonwoo on 2016. 6. 29..
  */
@@ -17,6 +20,15 @@ public class AccountDto {
     private String password;
 
     private String email;
+    //n+1
+    private List<Order> orders;
+  }
 
+  @Data
+  public static class Order{
+
+    private Long id;
+
+    private Date orderDate;
   }
 }
