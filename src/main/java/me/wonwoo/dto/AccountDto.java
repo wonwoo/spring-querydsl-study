@@ -30,5 +30,13 @@ public class AccountDto {
     private Long id;
 
     private Date orderDate;
+
+    private List<OrderItem> orderItems;
+  }
+
+  @Data
+  public static class OrderItem{
+    private Long id;
+    private Integer orderPrice;
   }
 }

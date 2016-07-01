@@ -39,4 +39,15 @@ public class AccountController {
 
     return new PageImpl<>(collect, pageable, all.getTotalElements());
   }
+
+  @GetMapping("/accounts/password")
+  public Page<AccountDto.Response> accounts(Pageable pageable){
+    Page<Account> all = accountRepository.findByPassword("PassWord", pageable);
+    List<AccountDto.Response> collect = all
+              .getContent()
+              .stream()
+              .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+
+    return new PageImpl<>(collect, pageable, all.getTotalElements());
+  }
 }

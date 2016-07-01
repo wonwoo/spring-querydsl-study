@@ -1,14 +1,9 @@
 package me.wonwoo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.sun.tools.doclint.Entity.or;
 
@@ -20,6 +15,7 @@ import static com.sun.tools.doclint.Entity.or;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ORDERS")
+@EqualsAndHashCode(of = "id")
 @ToString(exclude = {"orderItems"})
 public class Order {
 
@@ -33,7 +29,7 @@ public class Order {
   private Account account;
 
   @OneToMany(mappedBy = "order")
-  private List<OrderItem> orderItems = new ArrayList<>();
+  private List<OrderItem> orderItems;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date orderDate;

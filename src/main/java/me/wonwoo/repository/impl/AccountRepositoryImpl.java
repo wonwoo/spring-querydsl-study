@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static com.querydsl.core.QueryModifiers.limit;
 import static jdk.nashorn.internal.objects.NativeArray.join;
 
 /**
@@ -48,13 +50,21 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
   @Override
   public Page<Account> findByPassword(String password, Pageable pageable) {
     QAccount account = QAccount.account;
-    QueryResults<Account> accountSearchResults =
+    QOrder order = QOrder.order;
+    QOrderItem orderItem = QOrderItem.orderItem;
+    long l = from(account)
+      .join(account.orders, order).fetchCount();
+
+    Account accountSearchResults =
       from(account)
-        .where(account.password.like("%" + password + "%"))
-        .limit(pageable.getPageSize())
-        .offset(pageable.getOffset())
-        .fetchResults();
-    return new PageImpl<>(accountSearchResults.getResults(), pageable, accountSearchResults.getTotal());
+        .where(account.id.eq(1L))
+        .join(account.orders, order).fetchJoin()
+        .join(order.orderItems,orderItem)
+//        .where(account.password.like("%" + password + "%"))
+//        .offset(2)
+//        .limit(2)
+        .fetchFirst();
+    return new PageImpl<>(Arrays.asList(accountSearchResults), pageable, l);
   }
 
   @Override
