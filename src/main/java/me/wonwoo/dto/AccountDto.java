@@ -31,7 +31,7 @@ public class AccountDto {
 
     private Date orderDate;
 
-    private List<OrderItem> orderItems;
+//    private List<OrderItem> orderItems;
   }
 
   @Data

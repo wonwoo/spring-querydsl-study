@@ -50,4 +50,13 @@ public class AccountController {
 
     return new PageImpl<>(collect, pageable, all.getTotalElements());
   }
+
+  @GetMapping("/accounts/join")
+  public List<AccountDto.Response> accounts(){
+    List<Account> all = accountRepository.findByleftJoinOrders();
+    List<AccountDto.Response> collect = all
+      .stream()
+      .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+    return collect;
+  }
 }

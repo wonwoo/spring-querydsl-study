@@ -13,6 +13,7 @@ import java.util.List;
 
 import static com.querydsl.core.QueryModifiers.limit;
 import static jdk.nashorn.internal.objects.NativeArray.join;
+import static org.apache.coyote.http11.Constants.a;
 
 /**
  * Created by wonwoo on 2016. 6. 13..
@@ -52,19 +53,20 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
     QAccount account = QAccount.account;
     QOrder order = QOrder.order;
     QOrderItem orderItem = QOrderItem.orderItem;
-    long l = from(account)
-      .join(account.orders, order).fetchCount();
+//    long l = from(account)
+//      .join(account.orders, order).fetchCount();
 
-    Account accountSearchResults =
+    QueryResults<Account> accountSearchResults =
       from(account)
-        .where(account.id.eq(1L))
-        .join(account.orders, order).fetchJoin()
-        .join(order.orderItems,orderItem)
+        .distinct()
+//        .where(account.id.eq(1L))
+        .innerJoin(account.orders, order).fetchJoin()
+//        .join(order.orderItems,orderItem).fetchJoin()
 //        .where(account.password.like("%" + password + "%"))
 //        .offset(2)
 //        .limit(2)
-        .fetchFirst();
-    return new PageImpl<>(Arrays.asList(accountSearchResults), pageable, l);
+        .fetchResults();
+    return new PageImpl<>(accountSearchResults.getResults(), pageable, accountSearchResults.getTotal());
   }
 
   @Override
@@ -79,7 +81,7 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
     QAccount account = QAccount.account;
     QOrder order = QOrder.order;
     return from(account)
-      .join(account.orders, order).fetchJoin()
+      .innerJoin(account.orders, order).fetchJoin()
       .fetch();
   }
 
@@ -96,7 +98,9 @@ public class AccountRepositoryImpl extends QueryDslRepositorySupport implements 
     QAccount account = QAccount.account;
     QOrder order = QOrder.order;
     return from(account)
-      .leftJoin(account.orders, order)
+      .distinct()
+      .leftJoin(account.orders, order).fetchJoin()
+      .orderBy(account.id.asc(), order.id.asc())
       .fetch();
   }
 

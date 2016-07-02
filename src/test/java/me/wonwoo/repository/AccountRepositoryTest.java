@@ -39,15 +39,15 @@ public class AccountRepositoryTest {
   }
 
   @Test
-  public void findByEmailTest(){
+  public void findByEmailTest() {
     Account account = accountRepository.findByemail("wonwoo@test.com");
     System.out.println(account);
-    assertEquals(account.getName(),"wonwoo");
-    assertEquals(account.getEmail(),"wonwoo@test.com");
+    assertEquals(account.getName(), "wonwoo");
+    assertEquals(account.getEmail(), "wonwoo@test.com");
   }
 
   @Test
-  public void findByPasswordFirstTest(){
+  public void findByPasswordFirstTest() {
     Account account = accountRepository.findByPasswordFirst("PassWord1111");
     System.out.println(account);
 //    assertEquals(account.getName(),"wonwoo");
@@ -55,7 +55,7 @@ public class AccountRepositoryTest {
   }
 
   @Test
-  public void findByPasswordLikeTest(){
+  public void findByPasswordLikeTest() {
     Pageable pageable = new PageRequest(0, 2);
     Page<Account> accounts = accountRepository.findByPassword("PassWord", pageable);
     System.out.println(
@@ -74,26 +74,26 @@ public class AccountRepositoryTest {
   }
 
   @Test
-  public void findByAccountCountTest(){
+  public void findByAccountCountTest() {
     long count = accountRepository.findByAccount();
     System.out.println(count);
   }
 
   @Test
-  public void findByOrdersInnerJoinTest(){
-List<Account> byOrders = accountRepository.findByInnerJoinOrders();
-for(Account account :byOrders){
-  System.out.println(account.getOrders());
-}
+  public void findByOrdersInnerJoinTest() {
+    List<Account> byOrders = accountRepository.findByInnerJoinOrders();
+    for (Account account : byOrders) {
+      System.out.println(account.getOrders());
+    }
     System.out.println(
       byOrders.stream()
-      .map(String::valueOf)
-      .collect(joining("\n"))
+        .map(String::valueOf)
+        .collect(joining("\n"))
     );
   }
 
   @Test
-  public void findByOrdersLeftJoinTest(){
+  public void findByOrdersLeftJoinTest() {
     List<Account> byOrders = accountRepository.findByleftJoinOrders();
     System.out.println(
       byOrders.stream()
@@ -103,7 +103,7 @@ for(Account account :byOrders){
   }
 
   @Test
-  public void findByOrdersRightJoinTest(){
+  public void findByOrdersRightJoinTest() {
     List<Account> byOrders = accountRepository.findByRightJoinOrders();
     System.out.println(
       byOrders.stream()
@@ -113,6 +113,6 @@ for(Account account :byOrders){
   }
 
   @Test
-  public void findAllCustomizeTest(){
+  public void findAllCustomizeTest() {
   }
 }

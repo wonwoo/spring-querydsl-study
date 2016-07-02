@@ -25,7 +25,7 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Cu
     QOrder order = QOrder.order;
     QAccount account = QAccount.account;
     return from(order)
-      .leftJoin(order.account, account).fetchJoin()
+      .leftJoin(order.account, account)//.fetchJoin()
       .fetch();
   }
 

@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,6 +37,11 @@ public class Account {
 
   @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
   private List<Order> orders;
+
+//  @BatchSize(size = 10)
+//  @Fetch(FetchMode.SUBSELECT)
+//  @OrderBy("id")
+
 //
 //  public Account(String email, String name, String password) {
 //    this.email = email;
