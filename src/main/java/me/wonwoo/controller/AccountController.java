@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import me.wonwoo.domain.Account;
 import me.wonwoo.dto.AccountDto;
 import me.wonwoo.repository.AccountRepository;
+import me.wonwoo.repository.AccountRepositoryImplCustom;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class AccountController {
 
   private final AccountRepository accountRepository;
 
+  private final AccountRepositoryImplCustom accountRepositoryImplCustom;
   private final ModelMapper modelMapper;
 
   @GetMapping("/accounts")
@@ -59,4 +62,49 @@ public class AccountController {
       .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
     return collect;
   }
+
+  @GetMapping("/accounts/findByname")
+  public List<AccountDto.Response> findByname(@RequestParam String name){
+    List<Account> all = accountRepositoryImplCustom.findByname(name);
+    List<AccountDto.Response> collect = all
+      .stream()
+      .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+    return collect;
+  }
+
+  @GetMapping("/accounts/findByusernames")
+  public List<AccountDto.Response> findByusernames(@RequestParam String name){
+    List<Account> all = accountRepository.findByusernames(name);
+    List<AccountDto.Response> collect = all
+      .stream()
+      .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+    return collect;
+  }
+
+  @GetMapping("/accounts/findByusername")
+  public List<AccountDto.Response> findByusername(@RequestParam String name){
+    List<Account> all = accountRepository.findByusername(name);
+    List<AccountDto.Response> collect = all
+      .stream()
+      .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+    return collect;
+  }
+
+  @GetMapping("/accounts/findByusernamesQueryNative")
+  public List<AccountDto.Response> findByusernamesQueryNative(@RequestParam String name){
+    List<Account> all = accountRepository.findByusernamesQueryNative(name);
+    List<AccountDto.Response> collect = all
+      .stream()
+      .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+    return collect;
+  }
+  @GetMapping("/accounts/findByusernamesNamedQueryNative")
+  public List<AccountDto.Response> findByusernamesNamedQueryNative(@RequestParam String name){
+    List<Account> all = accountRepository.findByusernamesNamedQueryNative(name);
+    List<AccountDto.Response> collect = all
+      .stream()
+      .map(i -> modelMapper.map(i, AccountDto.Response.class)).collect(toList());
+    return collect;
+  }
+
 }

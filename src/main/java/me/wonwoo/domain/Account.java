@@ -22,6 +22,10 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "orders")
+@NamedQuery(
+  name = "Account.findByusername",
+  query = "select a from Account a where a.name = :name"
+)
 public class Account {
 
   @Id
