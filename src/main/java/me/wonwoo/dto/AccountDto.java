@@ -2,6 +2,7 @@ package me.wonwoo.dto;
 
 import lombok.Data;
 
+import java.time.*;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,16 @@ public class AccountDto {
     private String password;
 
     private String email;
+
+    private LocalDateTime localDateTime;
+
+    private ZonedDateTime zonedDateTime;
+
+    private LocalDate localDate;
+
+    private LocalTime localTime;
+
+    private OffsetDateTime offsetDateTime;
     //n+1
     private List<Order> orders;
   }

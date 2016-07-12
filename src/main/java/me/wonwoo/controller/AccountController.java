@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.*;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -31,6 +32,20 @@ public class AccountController {
 
   private final AccountRepositoryImplCustom accountRepositoryImplCustom;
   private final ModelMapper modelMapper;
+
+  @GetMapping("/post")
+  public void save(){
+    Account account = new Account();
+    account.setName("tt");
+    account.setEmail("123");
+    account.setPassword("111");
+    account.setLocalDateTime(LocalDateTime.now());
+    account.setLocalTime(LocalTime.now());
+    account.setLocalDate(LocalDate.now());
+    account.setZonedDateTime(ZonedDateTime.now());
+    account.setOffsetDateTime(OffsetDateTime.now());
+    accountRepository.save(account);
+  }
 
   @GetMapping("/accounts")
   public Page<AccountDto.Response> accounts(@QuerydslPredicate(root = Account.class) Predicate predicate,

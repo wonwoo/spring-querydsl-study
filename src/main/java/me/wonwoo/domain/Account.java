@@ -9,6 +9,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -41,6 +42,18 @@ public class Account {
 
   @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
   private List<Order> orders;
+
+  private LocalDateTime localDateTime;
+
+  private ZonedDateTime zonedDateTime;
+
+  private LocalDate localDate;
+
+  private LocalTime localTime;
+
+  private OffsetDateTime offsetDateTime;
+
+
 
 //  @BatchSize(size = 10)
 //  @Fetch(FetchMode.SUBSELECT)
